@@ -1,0 +1,48 @@
+name: ai_companion
+description: Offline AI companion app
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+
+  # Local storage for memory system
+  sqflite: ^2.3.3
+  path: ^1.9.0
+  path_provider: ^2.1.3
+
+  # State management
+  provider: ^6.1.2
+
+  # RAM / device info to pick model size
+  device_info_plus: ^10.1.0
+  system_info2: ^4.0.0
+
+  # Model downloading
+  http: ^1.2.1
+  percent_indicator: ^4.2.3
+
+  # Local LLM inference (llama.cpp GGUF via FFI plugin).
+  # This is the one native-build risk area — see README.
+  fllama: ^0.5.4
+
+  # Persisted settings
+  shared_preferences: ^2.2.3
+
+  # UUIDs for memory records
+  uuid: ^4.4.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
