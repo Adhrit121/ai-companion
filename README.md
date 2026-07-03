@@ -58,14 +58,22 @@ repo clean and avoids committing generated Gradle files.
 ## The one real risk: on-device inference
 
 Chat generation goes through `fllama`, a Flutter FFI plugin around
-llama.cpp, in `lib/services/llm_service.dart`. This is the correct approach
-architecturally, but I have no network access in my sandbox, so **I could
-not actually run a build here to confirm the native Android toolchain
-compiles clean** on GitHub's runners with the exact `fllama` version pinned.
+llama.cpp, in `lib/services/llm_service.dart`. It's pulled as a **git
+dependency** directly from `github.com/Telosnex/fllama` (its pub.dev
+listing isn't reliably versioned, so pinning a pub.dev version number
+fails dependency resolution — that's fixed now by using the git source,
+which is also the method the maintainers themselves recommend).
+
+This is the correct approach architecturally, but I have no network access
+in my sandbox, so **I could not actually run a build here to confirm the
+native Android toolchain compiles clean** on GitHub's runners against
+`main` of that repo.
 
 If the Actions build fails specifically at the `flutter build apk` step:
 - Check the Actions log for the actual native/CMake error
-- Try pinning a slightly older/newer `fllama` version in `pubspec.yaml`
+- Pin `ref:` in `pubspec.yaml` to a specific commit SHA instead of `main`
+  if upstream changes break the build — find a known-good commit from
+  their GitHub Actions/CI history if they have one
 - `fllama`'s GitHub repo has an example Android app — diffing its
   `android/build.gradle` NDK/CMake settings against what `flutter create`
   generates is usually the fix if there's a version mismatch

@@ -28,8 +28,13 @@ dependencies:
   percent_indicator: ^4.2.3
 
   # Local LLM inference (llama.cpp GGUF via FFI plugin).
-  # This is the one native-build risk area — see README.
-  fllama: ^0.5.4
+  # The Telosnex/fllama package isn't reliably versioned on pub.dev,
+  # so it's pulled straight from its GitHub source as recommended by
+  # the maintainers. This is the one native-build risk area — see README.
+  fllama:
+    git:
+      url: https://github.com/Telosnex/fllama.git
+      ref: main
 
   # Persisted settings
   shared_preferences: ^2.2.3
